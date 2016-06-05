@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'MuseoSansCyrl_100';
+    src: url(../fonts/MuseoSansCyrl_100.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_100_Italic';
+    src: url(../fonts/MuseoSansCyrl_100_Italic.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_300';
+    src: url(../fonts/MuseoSansCyrl_300.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_300_Italic';
+    src: url(../fonts/MuseoSansCyrl_300_Italic.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_500';
+    src: url(../fonts/MuseoSansCyrl_500.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_500_Italic';
+    src: url(../fonts/MuseoSansCyrl_500_Italic.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_700';
+    src: url(../fonts/MuseoSansCyrl_700.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_700_Italic';
+    src: url(../fonts/MuseoSansCyrl_700_Italic.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_900';
+    src: url(../fonts/MuseoSansCyrl_900.otf);
+}
+@font-face {
+    font-family: 'MuseoSansCyrl_900_Italic';
+    src: url(../fonts/MuseoSansCyrl_900_Italic.otf);
+}

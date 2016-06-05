@@ -1,0 +1,399 @@
+@font-face {
+  font-family: "Exo";
+  src: local("Exo"),
+  url(exo.ttf),
+  url(exo.woff),
+  url(exo.eot);
+}
+
+
+
+
+
+html, body {
+  margin: 0;
+  padding: 0 0 50px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: -10;
+  background: #e9e9e9;
+
+  
+}
+
+
+
+a {
+  text-decoration: none;
+
+}
+
+.bar {
+  position: fixed;
+  padding: 2% 0; 
+  width: 23%;
+  text-align: center;
+  height: 100%;
+  float: left;
+  background: #E0E0E0;
+}
+
+
+.main {
+  width: 77%;
+  height: 100%;
+  float: right;
+  cursor: default;
+}
+
+
+
+
+
+
+
+
+.photo {
+  background-image: url(photo.jpg);
+  width: 50%;
+  height: 100%;
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+[class*="icon"]{
+	padding-left: 100px;
+	padding-top: 35px;
+	min-height: 80px;
+	position: relative;
+	
+}
+[class*="icon"]:before{
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: url(../img/t-sprite.png);
+}
+[class*="upper"]{
+	text-transform: uppercase;
+}
+
+.icon-html:before{
+	width: 69px;
+	height: 80px;
+	
+	
+}
+.icon-css:before{
+	width: 69px;
+	background-position: -69px 0px;
+	height: 80px;
+}
+.icon-js:before{
+	width: 68px;
+	background-position: -136px 0px;
+	height: 80px;
+}
+.icon-jquery:before{
+	width: 75px;
+	background-position: -205px 0px;
+	height: 80px;
+}
+
+.icon-php:before{
+	width: 77px;
+	background-position: -289px 0px;
+	height: 80px;
+}
+
+.icon-git:before{
+	width: 63px;
+	background-position: 0px -87px;
+	height: 77px;
+}
+.icon-sass:before{
+	width: 101px;
+	background-position: -77px -85px;
+	height: 77px;
+}
+.icon-angular:before{
+	width: 60px;
+	background-position: -189px -87px;
+	height: 85px;
+}
+
+
+.padding-20{
+	padding: 20px;
+}
+
+.about {
+  padding: 0 3%;
+  float: right;
+  width: 44%;
+  font-size: 18px;
+}
+
+.skills span {
+  display: inline-block;
+  font-size: 14px;
+  cursor: default;
+  padding: 5px 10px;
+  margin: 5px;
+  background: #808080;
+  color: #fff;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+
+.contacts a {
+  cursor: pointer;
+  color: #fff;
+  background: #808080;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+
+.uppercase{
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+
+
+@media all and (max-width: 1024px) {
+
+
+
+
+.page__section__3{
+	width: 100%;
+}
+.page__muted__text{
+	text-align: left;
+}
+
+.index__page__smi li{
+	width: 100%;
+	
+}
+
+.page__navigation ul li{
+	width: 100%;
+}
+
+.index__page__ .index__page__hero__subscribe .index__page__hero__subscribe__area{
+	max-width: 100%;
+}
+
+.page__header .page__header__logo{
+	max-width: 340px !important;
+		background-size: 100% auto !important;
+}
+
+.media__video__other ul li{
+	width: 100% !important;
+}
+
+.index__page__smi li{
+	width: 100% !important; 
+	
+}
+
+.page__section__3{
+	width: 100% !important;
+}
+
+.media__video__placeholder__video{
+	width: 320px !important;
+}
+
+.media__video__placeholder__description{
+	margin-left: 0px !important;
+	margin-top: 20px !important;
+}
+
+.content__article img{
+	max-width: 100% !important;
+}
+
+.book__desc__field, .book__image__field{
+	width: 100% !important;
+}
+
+ .page__table__courses {
+	 width: 100% !important;
+ }
+
+.page__table__courses thead td:first-child, .page__table__courses tbody td:first-child, .page__table__courses thead td:nth-child(2), .page__table__courses tbody td:nth-child(2), .page__table__courses thead td:nth-child(4), .page__table__courses tbody td:nth-child(4) {
+	display: none;
+}
+ .page__table__courses thead td:nth-child(5), .page__table__courses tbody td:nth-child(5){
+	width: 150px;
+}
+
+.page__table__courses thead td:nth-child(3), .page__table__courses tbody td:nth-child(3){
+	width: 150px;
+}	
+
+
+.sprite__main__page li{
+	width: 100% !important;
+}
+
+.page__padding__article{
+	padding: 0px 10px 30px !important;
+}
+
+.sprite__main__page li.fb{
+	margin-left: 0px !important;
+}
+
+.c__page__main__content img, .content__article img{
+	max-width: 100% !important;
+}
+
+.content__article .table{
+	width: 100% !important;
+}
+
+.content__article table td{
+	display: block;
+}
+  .page__wrapper{
+	  padding: 0px;
+	  margin: 0px;
+	  
+  }	
+  
+}
+
+@media all and (orientation: portrait) {
+
+}
+
+@media (max-device-width: 1000px) and (orientation: landscape) {
+
+ .page__section__3{
+	width: 100%;
+}
+.page__muted__text{
+	text-align: left;
+}
+
+.index__page__smi li{
+	width: 100%;
+	
+}
+
+.page__navigation ul li{
+	width: 100%;
+}
+
+.index__page__ .index__page__hero__subscribe .index__page__hero__subscribe__area{
+	max-width: 100%;
+}
+
+.page__header .page__header__logo{
+	width: 100%;
+	background-size: 100% auto;
+}
+
+.page__header .page__header__logo{
+	max-width: 340px !important;
+	background-size: 100% auto !important;
+}
+
+.media__video__other ul li{
+	width: 100% !important;
+}
+
+.index__page__smi li{
+	width: 100% !important; 
+	
+}
+
+
+.page__section__3{
+	width: 100% !important;
+}
+
+.media__video__placeholder__video{
+	width: 320px !important;
+}
+
+
+.media__video__placeholder__description{
+	margin-left: 0px !important;
+	margin-top: 20px !important;
+}
+
+.content__article img{
+	max-width: 100% !important;
+}
+
+.book__desc__field, .book__image__field{
+	width: 100% !important;
+}	
+
+ .page__table__courses {
+	 width: 100% !important;
+ }
+
+.page__table__courses thead td:first-child, .page__table__courses tbody td:first-child, .page__table__courses thead td:nth-child(2), .page__table__courses tbody td:nth-child(2), .page__table__courses thead td:nth-child(4), .page__table__courses tbody td:nth-child(4) {
+	display: none;
+}
+ .page__table__courses thead td:nth-child(5), .page__table__courses tbody td:nth-child(5){
+	width: 150px;
+}
+
+.page__table__courses thead td:nth-child(3), .page__table__courses tbody td:nth-child(3){
+	width: 150px;
+}
+
+.c__page__main__content img, .content__article img{
+	max-width: 100% !important;
+}
+
+
+.sprite__main__page li{
+	width: 100% !important;
+}
+
+.page__padding__article{
+	padding: 0px 10px 30px !important;
+}
+
+.sprite__main__page li.fb{
+	margin-left: 0px !important;
+}
+
+.content__article .table{
+	width: 100% !important;
+}
+
+.content__article table td{
+	display: block;
+}
+  
+  .page__wrapper{
+	  padding: 0px;
+	  margin: 0px;
+	  
+  }
+  
+
+}
