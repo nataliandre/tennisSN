@@ -1,5 +1,5 @@
 
-{extends file=$EXTENDER}
+{extends file=$EXTENDER navbar=$designNavbarType}
 {block name="body"}
 	{strip}
 

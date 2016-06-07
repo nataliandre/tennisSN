@@ -354,6 +354,14 @@
      public function depreparet($source){
 	     return str_replace('"','\"',$source);
      }
+
+      public function designNavbarTop(){
+          return ($this->bIsAuthentificated()) ? 'navbarIsAuthentificated.tpl' : 'navbar.tpl';
+      }
+
+      public function bIsAuthentificated(){
+          return ($_SESSION['oUser']) ? true : false;
+      }
       
       
       
