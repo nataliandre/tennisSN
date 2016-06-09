@@ -1,0 +1,6 @@
+<ul class="index__page__smi">
+<li><a href="http://life.pravda.com.ua/press-release/2016/03/21/209730/" target="_blank"> <img src="custom/img/smi/up.png" /> </a></li>
+<li><a href="http://akmc.in.ua/index.php/ru/2743-yatsenyuk-ne-vliyaet-na-obshchestvennoe-mnenie-rejting" target="_blank"> <img src="custom/img/smi/ukr_media.png" /></a></li>
+<li><a href="http://city.ck.ua/catalog/articles/institut-ritoriki-im-dkennedi-nazval-luchshego-oratora-ukraini.html" target="_blank"> <img src="custom/img/smi/city.png" /> </a></li>
+<li><a href="http://www.management.com.ua/partners/2016/02/22/institut-ritoriki-im.-d.kennedi-nazval-luchshego-oratora-ukrainy/" target="_blank"> <img src="custom/img/smi/management.png" /> </a></li>
+</ul>

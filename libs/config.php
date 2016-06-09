@@ -1,11 +1,9 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://glorytest.webstudiomandarin.com/');
-define('HTTP_SERVER_R', 'http://glorytest.webstudiomandarin.com/');
+define('HTTP_SERVER', 'http://tennis.webstudiomandarin.com/');
+define('HTTP_SERVER_R', 'http://tennis.webstudiomandarin.com/');
 date_default_timezone_set('Europe/Kiev');
-// HTTPS
-define('HTTPS_SERVER', 'http://glorytest.webstudiomandarin.com/');
-define('HTTPS_SERVER_CLEAR', '');
+
 
 
 
@@ -18,47 +16,18 @@ define('DOC_ROOT',$_SERVER['DOCUMENT_ROOT']);
 
 define('DIR_IMAGE', '/img/');
 define('DIR_LANGUAGE','/language/');
-define('DIR_IMAGE_BOOKS','/img/preview/');
-define('DIR_IMAGE_PRODUCTS','/img/preview/');
-define('DIR_DOWNLOAD_BOOKS','http://4businessmind.com/files/books/');
+
 
 
 
 //ROUTES , define TAB_ACTIVE_..(T_A_..) to see the tab changes in menu 
-
+define('LinkRegistrationFirstStepAction',HTTP_SERVER.'registration/start');
+define('linkLoginAction',HTTP_SERVER.'auth/login');
+define('linkMainPage',HTTP_SERVER);
 
 
 //TRUE LINKS
 
-define('ROUTE_ADMIN', HTTP_SERVER.'admin');
-define('ROUTE_TRANES', 'trane');
-define('ROUTE_TRANES_VIEW', 'trane/view/');
-define('ROUTE_TRANES_ADD', 'trane/add/');
-define('INSTITUT__LINK','pro-institut-retorici');
-define('CONTACTS__LINK','kontakty');
-
-
-
-
-define('ROUTE_MAKE_ORDER', HTTP_SERVER.'order/make');
-define('ROUTE_FIND_ORDER', HTTP_SERVER.'order/find');
-
-
-define('ARTICLE_LINK','articles/category/');
-define('ARTICLE_VIEW_LINK','articles/view/');
-define('ARTICLE_ADD_LINK','articles/add/');
-
-
-define('PRODUCT_CATALOG_LINK','products/catalog/');
-define('PRODUCT_ITEM_LINK','products/item/');
-
-
-define('MEDIA_LINK_ADD','new-media');
-define('BOOKS_LINK','libs/');
-define('BOOKS_LINK_VIEW','kniga/');
-define('BOOK_ADD_LINK','libs/add');
-define('ADMIN_UPLOAD','loader/');
-define('ADMIN_FILES','loader/files');
 //ADMIN DIR
 
 //varibles
@@ -86,18 +55,12 @@ define('LANGUAGES','en,ua,ru,pl');
 
 
 
-// DB
 
 
 
 // SYSTEM CONST
 
-define('SHOW_PAGES',5);
 
-
-
-define('ADMIN__LOGIN','admin12345');
-define('ADMIN__PASSWORD','12345');
 
 
 //coordinats

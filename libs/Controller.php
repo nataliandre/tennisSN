@@ -26,26 +26,17 @@
               
               require('libs/Functions.php');
               $this->functions                   = new Functions();
-              $this->settings['SERVER_ROOT'] = HTTPS_SERVER;
-              $this->settings['TRANE_LINK'] = HTTPS_SERVER.ROUTE_TRANES;
-              $this->settings['INSTITUT__LINK'] = HTTPS_SERVER.INSTITUT__LINK;
-              $this->settings['CONTACTS__LINK'] = HTTPS_SERVER.CONTACTS__LINK;
-              $this->settings['NOVOSTI_LINK'] = HTTPS_SERVER.ARTICLE_LINK.'novosti';
-              $this->settings['PUBLIKACJI_LINK'] = HTTPS_SERVER.ARTICLE_LINK.'publikatsii';
-              $this->settings['MEDIA_LINK'] = HTTPS_SERVER.MEDIA_LINK;
-              $this->settings['BOOKS_LINK'] = HTTPS_SERVER.BOOKS_LINK;
-              $this->settings['ADMIN_UPLOAD'] = HTTPS_SERVER.ADMIN_UPLOAD;
-              $this->settings['ADMIN_FILES'] = HTTPS_SERVER.ADMIN_FILES;
+
+
+              //links generation
+              $this->settings['linkRegistrationFirstStepAction'] = LinkRegistrationFirstStepAction;
+              $this->settings['linkLoginAction'] = linkLoginAction;
+              $this->settings['linkMainPage'] = linkMainPage;
               
-               $this->settings['BOOKS_LINK_VIEW'] = HTTPS_SERVER.BOOKS_LINK_VIEW;
-              
-              
-              
-              
-              $lang_link= ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
-              $redirect_lang =  ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
-              $lang_link.= (stristr($lang_link,'?')) ? '&' : '?';
-              $lang_link.= LANG.'=';
+//              $lang_link= ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
+//              $redirect_lang =  ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
+//              $lang_link.= (stristr($lang_link,'?')) ? '&' : '?';
+//              $lang_link.= LANG.'=';
               
               $this->tab_active =  $_GET['url'];
               
@@ -61,15 +52,6 @@
               require_once('smarty.php');
               $this->render = $smarty;
               $this->render->assign('EXTENDER',$this->extender);
-              
-              
-              
-              
-            
-
-              
-              
-              
              /* /* language inductor */
              /* if($_GET[LANG]){
 	              $_SESSION[LANG] = $_GET[LANG];

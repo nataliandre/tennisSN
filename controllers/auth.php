@@ -2,6 +2,7 @@
 class Auth extends Controller{
     public function  __construct() {
         parent::__construct();
+        $this->setting['classBodyCss'] = 'classTennisBackground';
     }
         public function login(){
             $this->setOutput('auth/login.tpl');
