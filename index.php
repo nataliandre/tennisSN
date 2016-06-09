@@ -6,7 +6,7 @@ date_default_timezone_set('Europe/Kiev');
 
 
 require_once('libs/config.php');
-
+require_once('redBeans/config.php');
   /* REDIRECT_SCRIPT_URL*/
 require 'libs/Bootstrap.php';
 require 'libs/Controller.php';

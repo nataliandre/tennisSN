@@ -10,7 +10,7 @@
     
     
   public function __construct() {
-      
+      R::setup( 'mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME,DB_PASSWORD);
         
         
   }
