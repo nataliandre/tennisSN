@@ -1,6 +1,6 @@
 <?php
 
-require_once('ODB/config.php');
+require_once('redBeans/config.php');
  class Bootstrap_help{
 	 public $db_host  = DB_HOSTNAME;
 	 public $db_user = DB_USERNAME;

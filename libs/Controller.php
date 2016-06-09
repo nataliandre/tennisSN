@@ -133,39 +133,7 @@
         
         
       
-        public function render(){
-          
-          foreach ($this->child as $key => $value){
-              
-              extract($this->settings, EXTR_PREFIX_SAME, "hr");
-              
-              ob_start();
-        
-              require('view/'.$value.'.php');
-        
-              $this->settings[$key] = ob_get_contents();
-  
-              ob_end_clean();
-              
-              
-          }
-         
-              
-              extract($this->settings, EXTR_PREFIX_SAME, "hr");
 
-              ob_start();
-        
-              require('view/'.$this->template.'.php');
-        
-              $this->output = ob_get_contents();
-  
-              ob_end_clean();
-              
-              echo $this->output; 
-         
-         
-        }
-        
         
         
 
@@ -185,10 +153,8 @@
            $this->render->assign('tab_active',$this->tab_active);
            $this->render->assign('pagination',$this->pagination);
            $this->render->assign('cur_lang',$this->cur_lang);
+           $this->render->assign('designNavbarType',$this->designNavbarTop());
            $this->render->display('view/'.$tpl);
-           
-             
-             
       }
       
       public function setData($array){
@@ -355,10 +321,18 @@
 	     return str_replace('"','\"',$source);
      }
 
+      /**
+       * @return string
+       * change navbar infuently from access rules
+       */
       public function designNavbarTop(){
-          return ($this->bIsAuthentificated()) ? 'navbarIsAuthentificated.tpl' : 'navbar.tpl';
+          return ($this->bIsAuthentificated()) ? '../navbar/navbarIsAuthentificated.tpl' : '../navbar/navbar.tpl';
       }
 
+      /**
+       * @return bool
+       * this function decides if user is uthentificated
+       */
       public function bIsAuthentificated(){
           return ($_SESSION['oUser']) ? true : false;
       }

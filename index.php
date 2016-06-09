@@ -11,7 +11,7 @@ require_once('libs/config.php');
 require 'libs/Bootstrap.php';
 require 'libs/Controller.php';
 require 'libs/Model.php';
-require 'ODB/ODB.php';
+require 'redBeans/rb.php';
 
 $app = new Bootstrap();
 
