@@ -19,7 +19,7 @@
 				$this->setOutput('loader/file.tpl');
 				
 			}else{
-				$this->setOutput('loader/main.tpl');
+				$this->setOutput('loader/view.tpl');
 			}
 		}
 		

@@ -8,20 +8,27 @@
     <meta name="Robots" content="ALL">
     <meta name="revisit-after" content="3 days">
 
-    <link rel="icon" href="" type="image/x-icon">
+    <link rel="icon" href="/custom/img/tennisIconD.ico" type="image/x-icon">
 
 
     <!-- styles -->
     {$styles}
-    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="shortcut icon" href="/custom/img/tennisIconD.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/standart/css/bootstrap.superhero.min.css">
     <link rel="stylesheet" href="/custom/css/css.css">
     <!-- scripts -->
     <script src="/standart/js/jquery.min.js" ></script>
     <script src="/standart/js/bootstrap.js" ></script>
-    <script src="/standart/js/jquery.form.js"></script>
-    <script src="/custom/js/translite.js"></script>
+    <script src="/standart/js/validate.js"></script>
+
+    {foreach from=$ScriptUser item=$path}
+        <script type="text/javascript" src="/custom/js/{$path}"></script>
+    {/foreach}
+    {foreach from=$CssUser item=$path}
+        <link rel="stylesheet" href="/custom/css/{$path}">
+    {/foreach}
+
 </head>
 <body>
 <body class="{$classBodyCss}">

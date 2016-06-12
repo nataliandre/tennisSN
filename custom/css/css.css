@@ -1,6 +1,12 @@
 body{
     min-width: 950px;
 }
+
+hr{
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
 *, :active, :hover{
     outline: none !important;
 }
@@ -25,4 +31,27 @@ body{
 }
 .align-center{
     text-align: center;
+}
+
+.bg__tennis__image{
+    background: url(../img/bg/tennisWallaper.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.navbar-brand{
+    background: url(../img/tennisIconWt.png);
+    padding-left: 27px;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.photo__form{
+    width: 700px;
+    margin: auto;
+}
+
+.sm-txt{
+    font-size: 12px;
 }

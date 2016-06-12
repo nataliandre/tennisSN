@@ -3,19 +3,22 @@
     {strip}
         <div class="wrapper">
             <div class="well auth__form">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" action="{$actionForm}">
                 <fieldset>
                     <legend class="align-center">Вход на сайт</legend>
+                    <div class="">
+                    {$flashMessage}
+                    </div>
                     <div class="form-group">
                         <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                            <input type="text" class="form-control" name="email" id="inputEmail" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" class="col-lg-2 control-label">Пароль</label>
                         <div class="col-lg-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+                            <input type="password" class="form-control" name="passwd" id="inputPassword" placeholder="Пароль">
                         </div>
                     </div>
 

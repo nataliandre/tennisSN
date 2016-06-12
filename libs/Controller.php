@@ -31,7 +31,23 @@
               //links generation
               $this->settings['linkRegistrationFirstStepAction'] = LinkRegistrationFirstStepAction;
               $this->settings['linkLoginAction'] = linkLoginAction;
-              $this->settings['linkMainPage'] = linkMainPage;
+              if($this->bIsAuthentificated()){
+                  $this->settings['linkMainPage'] = linkMainAuthentificatedPage;
+                  $this->settings['linkUserCompetitions'] = linkUserCompetitions;
+                  $this->settings['linkUserGames'] = linkUserGames;
+                  $this->settings['linkUserMessages'] = linkUserMessages;
+                  $this->settings['linkUserPhotos'] = linkUserPhotos;
+                  $this->settings['linkUserSends'] = linkUserSends;
+                  $this->settings['linkUserTunes'] = linkUserTunes;
+
+                  $this->settings['linkLogOut'] = linkLogOut;
+
+
+              }else{
+                  $this->settings['linkMainPage'] = linkMainPage;
+              }
+
+
               
 //              $lang_link= ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
 //              $redirect_lang =  ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
@@ -52,8 +68,13 @@
               require_once('smarty.php');
               $this->render = $smarty;
               $this->render->assign('EXTENDER',$this->extender);
+              if($this->bIsAuthentificated()){
+                  $this->vSetExtendedTpl('user/tpl/userProfile.tpl');
+              }else{
+                  $this->vSetExtendedTpl('common/tpl/mainTpl.tpl');
+              }
              /* /* language inductor */
-             /* if($_GET[LANG]){
+             /* if($_GET[LA $this->vSetExtendedTpl('user/tpl/userProfile.tpl');NG]){
 	              $_SESSION[LANG] = $_GET[LANG];
 	              $this->cur_lang=$_SESSION[LANG];
 	              header("Location: ".$redirect_lang);
@@ -78,51 +99,40 @@
         
         */
              
-        public function load_model($model){
+        public function modelLoad($model){
              require 'model/'.$model.'.php';
              $model = explode('/',$model);
              $class = end($model);
-             $class = $class.'Model';
+             $class = $class;
              $this->modeltitle = $class;
              $this->model = new $class;
           
         }
-        
-        
-        
-        
-        
-        
-        
+
+      /**
+       * @param $route
+       * @return string
+       */
+      public  function makeUrlToController($route){
+            return HTTP_SERVER.$route;
+      }
 
         
-        
-        public function preRender($element,$array = false ){
-	          if($array){
-	          			extract($array, EXTR_PREFIX_SAME, "hr");
-              }
-              ob_start();
-        
-              require('view/'.$element.'.php');
-        
-              $varible = ob_get_contents();
-  
-              ob_end_clean();
-	          return $varible;
-	        
-	        
-        }
-        
-        
-      
 
-        
-        
 
-             
-        
+
+      /**
+       * @param $route
+       */
         public function redirect($route){
            header("Location: ".$route);
+        }
+
+          /**
+           * @param $controller
+           */
+        public function redirectToController($controller){
+            $this->redirect(HTTP_SERVER.$controller);
         }
         
         
@@ -138,6 +148,14 @@
            $this->render->assign('designNavbarType',$this->designNavbarTop());
            $this->render->display('view/'.$tpl);
       }
+
+      /**
+       * @param $route
+       */
+      public function vSetExtendedTpl($route){
+          $this->render->assign('EXTENDER_TPL','view/'.$route);
+      }
+
       
       public function setData($array){
 	      foreach($array as $key=>$value){
@@ -164,11 +182,36 @@
         public function admin(){
 	        return $_SESSION['admin'];
         }
-      
-      
-       
-    public function generateToken(){
-      
+
+
+      /**
+       * @param $sParameterName
+       * @param $sParaeterValue
+       */
+      public function setSessionParameters($sParameterName,$sParaeterValue){
+          $_SESSION[$sParameterName] = $sParaeterValue;
+      }
+
+      /**
+       * @param $sParameterName
+       * @return mixed
+       */
+      public function getSessionParameters($sParameterName){
+          return isset($_SESSION[$sParameterName]) ? $_SESSION[$sParameterName] : false;
+      }
+
+      /**
+       * @param $sParameterName
+       */
+      public function deleteSessionParameters($sParameterName){
+          unset($_SESSION[$sParameterName]);
+      }
+
+
+      /**
+       * @return string
+       */
+    public function tokenGenerate(){
       $token="";
       $values="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
@@ -176,69 +219,88 @@
       {
         $token.=$values[rand(0,61)];
       }
-      
-      $_SESSION['token'] = md5($token);
-      $a['token'] = $token;
-      $a['token_md5'] =  md5($token);
-      return $a;
+        $this->setSessionParameters('token',md5($token));
+        return $token;
     }
-    
-    
-    
-   
-    
-    
-    
-    public function checkToken($token){
-      if($_SESSION['token'] == md5($token)){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    
-    
-    
-    
-   
-     
-    
-    
-    
-    public function loadModel($array){
-              extract($array, EXTR_PREFIX_SAME, "hr");
 
-              ob_start();
-              
-              require('view/modal/modal.php');
-        
-              $this->output = ob_get_contents();
-  
-              ob_end_clean();
-              
-              return $this->output; 
-      
+      /**
+       * @param $tokenValue
+       * @return bool
+       */
+    public function tokenCheck($tokenValue){
+      return ($this->getSessionParameters('token') == md5($tokenValue)) ? true : false;
     }
-    
-    
-    
-    public function loadParticle($dir,$array=false){
-      if($array){
-              extract($array, EXTR_PREFIX_SAME, "hr");
+
+      /**
+       * @param $objectWithNoMethods
+       * @return string
+       */
+      public function serealizeObject($objectWithNoMethods){
+          $sSerealized = '';
+          foreach ($objectWithNoMethods as $k => $v){
+              $sSerealized = $k.'='.$v.'&';
+          }
+          return $sSerealized;
       }
 
-              ob_start();
-              
-              require('view/modal/'.$dir.'.php');
-        
-              $this->output = ob_get_contents();
-  
-              ob_end_clean();
-              
-              return $this->output; 
-    }
-    
+
+      /**
+       * @param $routeTpl
+       * @param $data
+       * @return mixed
+       */
+      public function getMailTemplate($routeTpl,$data){
+          if( $curl = curl_init() ) {
+              curl_setopt($curl, CURLOPT_URL, mailTemplateLink.$routeTpl);
+              curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+              curl_setopt($curl, CURLOPT_POST, true);
+              curl_setopt($curl, CURLOPT_POSTFIELDS,$this->serealizeObject($data));
+              $tplBody = curl_exec($curl);
+              curl_close($curl);
+              return $tplBody;
+          }
+      }
+
+      /**
+       * @return bool
+       */
+      public function bEmptyPostData(){
+        return (empty($_POST)) ? true : false;
+      }
+
+      /**
+       * @param $path
+       * set script for special code part
+       */
+      public function setScriptUser($path){
+            $this->settings['ScriptUser'][] = $path;
+      }
+
+      /**
+       * @param $path
+       */
+      public function setCSSUser($path){
+          $this->settings['CssUser'][] = $path;
+      }
+
+      /**
+       * @return mixed
+       */
+      public function getFlashMessage(){
+          if($this->getSessionParameters('flashMessage')){
+              $message = $this->getSessionParameters('flashMessage');
+              $this->deleteSessionParameters('flashMessage');
+              return $message;
+          }
+      }
+
+      /**
+       * @param $message
+       */
+      public function setFlashMessage($message){
+          $this->setSessionParameters('flashMessage',$message);
+      }
+
     
     
     public function returnReloader($location,$timeout = 3000){
@@ -316,7 +378,34 @@
        * this function decides if user is uthentificated
        */
       public function bIsAuthentificated(){
-          return ($_SESSION['oUser']) ? true : false;
+          return ($_SESSION['idUser']) ? true : false;
+      }
+
+      /**
+       * @param $idUser
+       * this function authentificate user
+       */
+      public function vAuthentificateUser($idUser){
+          $this->setSessionParameters('idUser',$idUser);
+      }
+
+      /**
+       *
+       */
+      public function vLogOutUser(){
+          $this->deleteSessionParameters('idUser');
+      }
+
+
+
+
+      /**
+       * @return object
+       * convert request to object
+       */
+      public function oGetRequestObject(){
+          $object = (object) $_REQUEST;
+          return $object;
       }
       
       

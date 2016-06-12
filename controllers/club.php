@@ -10,7 +10,7 @@ class club extends Controller{
         $this->setOutput('club/photos.tpl');
     }
     public function edit(){
-        $this->setOutput('club/edit.tpl');
+        $this->setOutput('club/tunes.tpl');
     }
     public function comunity(){
         $this->setOutput('club/comunity.tpl');

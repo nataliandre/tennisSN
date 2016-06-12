@@ -5,15 +5,41 @@ class Auth extends Controller{
         $this->setting['classBodyCss'] = 'classTennisBackground';
     }
         public function login(){
+            if($this->bIsAuthentificated()){
+                $this->redirectToController('user/page');
+            }
+            $this->settings['flashMessage'] = $this->getFlashMessage();
+            $this->settings['classBodyCss'] = 'bg__tennis__image';
+            $this->settings['actionForm'] = linkDoLoginAction;
             $this->setOutput('auth/login.tpl');
         }
-        public function register(){
-            $this->setOutput('auth/register.tpl');
+
+
+        public function doLoginAction(){
+            if($this->bIsAuthentificated()){
+                $this->redirectToController('user/page');
+            }
+            $data = $this->oGetRequestObject();
+            $this->modelLoad('user/UserModel');
+            $idUser = $this->model->authentificateUser($data);
+            if(is_numeric($idUser)){
+                $this->vAuthentificateUser($idUser);
+                $this->redirectToController('user/page');
+            }else{
+                $this->setFlashMessage($idUser);
+                $this->redirectToController('auth/login');
+            }
         }
+
+
         public function forgottenPass(){
             $this->setOutput('auth/forgottenPass.tpl');
         }
-        public function checkOut(){
-            $this->setOutput('auth/checkOut.tpl');
+
+        public function logOut(){
+            if($this->bIsAuthentificated()) {
+                $this->vLogOutUser();
+            }
+            $this->redirectToController('auth/login');
         }
     }
