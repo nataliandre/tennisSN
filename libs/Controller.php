@@ -13,6 +13,9 @@
         public $render;
         public $extender  = 'view/common/body.tpl';
         public $cur_lang;
+
+
+        private $_requiredFiles;
         
         
         /* if you have other imagination about languages interface remove this*/
@@ -26,12 +29,17 @@
               
               require('libs/Functions.php');
               $this->functions                   = new Functions();
+              $this->settings['routeAvatarTpl'] = '../elements/images/avatar.tpl';
 
 
               //links generation
               $this->settings['linkRegistrationFirstStepAction'] = LinkRegistrationFirstStepAction;
               $this->settings['linkLoginAction'] = linkLoginAction;
-              if($this->bIsAuthentificated()){
+              $this->settings['ajaxController'] = $this->makeUrlToController('ajax/');
+
+
+              $this->settings['fIsAuthentificatedUser'] = $this->bIsAuthentificated();
+              if($this->settings['fIsAuthentificatedUser']){
                   $this->settings['linkMainPage'] = linkMainAuthentificatedPage;
                   $this->settings['linkUserCompetitions'] = linkUserCompetitions;
                   $this->settings['linkUserGames'] = linkUserGames;
@@ -42,6 +50,10 @@
 
                   $this->settings['linkLogOut'] = linkLogOut;
 
+                  $this->settings['linkFriendsPage'] = $this->makeUrlToController('users/friends');
+                  $this->settings['linkMessagesHistory'] = $this->makeUrlToController('messages/send/');
+
+                  $this->getNewFriendsCount();
 
               }else{
                   $this->settings['linkMainPage'] = linkMainPage;
@@ -98,15 +110,38 @@
         }
         
         */
+
+
+        public function getNewFriendsCount(){
+            $FriendsModel  = $this->modelLoadToVar('friends/FriendsModel');
+            $this->settings['iCountNewFriends'] = $FriendsModel->getNewFriendsRequests($this->getCurrentUser());
+        }
+
+        public function getCurrentUser(){return $this->getSessionParameters('idUser');}
+
              
         public function modelLoad($model){
-             require 'model/'.$model.'.php';
+             $this->correctRequireClass($model);
              $model = explode('/',$model);
              $class = end($model);
-             $class = $class;
              $this->modeltitle = $class;
              $this->model = new $class;
           
+        }
+
+        public function correctRequireClass($filePath){
+            if(!isset($this->_requiredFiles[$filePath])){
+                require 'model/'.$filePath.'.php';
+                $this->_requiredFiles[$filePath] = true;
+            }
+        }
+
+
+        public function modelLoadToVar($model,$params = null){
+            $this->correctRequireClass($model);
+            $model = explode('/',$model);
+            $class = end($model);
+            return new $class($params);
         }
 
       /**
@@ -212,16 +247,27 @@
        * @return string
        */
     public function tokenGenerate(){
-      $token="";
-      $values="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    
-      for($i=0;$i<10;$i++)
-      {
-        $token.=$values[rand(0,61)];
-      }
+        $token = $this->generateRandomStringValue();
         $this->setSessionParameters('token',md5($token));
         return $token;
     }
+
+
+
+
+      /**
+       * @return string
+       */
+      public function generateRandomStringValue(){
+          $token="";
+          $values="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+          for($i=0;$i<10;$i++)
+          {
+              $token.=$values[rand(0,61)];
+          }
+          return $token;
+      }
 
       /**
        * @param $tokenValue
@@ -230,6 +276,29 @@
     public function tokenCheck($tokenValue){
       return ($this->getSessionParameters('token') == md5($tokenValue)) ? true : false;
     }
+
+
+      /**
+       * @param $userId
+       */
+      public function hashGenerate($userId){
+          $hash = $this->generateRandomStringValue();
+          $this->setSessionParameters('hashUser',$hash);
+
+          $user = R::load('tbluser',$userId);
+          $user->hash = md5($hash);
+          R::store($user);
+      }
+
+      /**
+       * @return bool
+       */
+      public function checkSessionHash(){
+
+          $userId = $this->getSessionParameters('idUser');
+          $user = R::load('tbluser',$userId);
+          return (md5($this->getSessionParameters('hashUser'))==$user->hash) ? true : false ;
+      }
 
       /**
        * @param $objectWithNoMethods
@@ -278,6 +347,14 @@
 
       /**
        * @param $path
+       * set script for special code part
+       */
+      public function setEndScriptUser($path){
+          $this->settings['EndScriptUser'][] = $path;
+      }
+
+      /**
+       * @param $path
        */
       public function setCSSUser($path){
           $this->settings['CssUser'][] = $path;
@@ -310,60 +387,6 @@
 	    return $str;
     }
     
-  public function file_get_content($file){
-	  
-	  //echo 'view/elementy/'.$file.'.txt';
-	  $fp = fopen('view/elementy/'.$file.'.txt', "r");
-	 
-	  $mytext = '';
-      while(!feof($fp)) { 
-	    $mytext.= fgets($fp);
-	  } 
-	  fclose($fp);
-	  //echo $mytext; 
-	  return $mytext;
-  }
-  
- public function file_set_content($content,$file){
-	  
-	  
-	  $fp = fopen('view/elementy/'.$file.'.txt',  'w');
-	  fwrite($fp,$content);
-	  fclose($fp);
-	 
-  }
-    
-
-    
-    
-    
-    
-    /* textualize functions */
-    
-    
-    public function makeAroudQuotes($a){
-	    return '&#171;'.$a.'&#187;'; 
-    }
-    
-    public function mAQs($a){ return $this->makeAroudQuotes($a);}
-    
-    
-    
-    public function prepare($source){
-	    return str_replace("\\'","'",$source);  
-    }
-     public function preparet($source){
-	     return str_replace('\\"','"',$source);
-     }
-    
-     
-    public function deprepare($source){
-	    return str_replace("'","\\'",$source);  
-    }
-    
-     public function depreparet($source){
-	     return str_replace('"','\"',$source);
-     }
 
       /**
        * @return string
@@ -387,6 +410,7 @@
        */
       public function vAuthentificateUser($idUser){
           $this->setSessionParameters('idUser',$idUser);
+          $this->hashGenerate($idUser);
       }
 
       /**
@@ -394,6 +418,7 @@
        */
       public function vLogOutUser(){
           $this->deleteSessionParameters('idUser');
+          $this->deleteSessionParameters('hashUser');
       }
 
 
@@ -406,6 +431,19 @@
       public function oGetRequestObject(){
           $object = (object) $_REQUEST;
           return $object;
+      }
+
+      /**
+       * @return object
+       * convert Files to object
+       */
+      public function oGetFilesObject(){
+          $object = (object) $_FILES;
+          return $object;
+      }
+
+      public function getRegistrationValidator(){
+          require 'libs/Validators/RegistrationValidator.php';
       }
       
       

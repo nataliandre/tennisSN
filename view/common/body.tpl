@@ -40,3 +40,7 @@
 </footer>
 </body>
 </html>
+{foreach from=$EndScriptUser item=$path}
+    <script type="text/javascript" src="/custom/js/{$path}"></script>
+{/foreach}
+

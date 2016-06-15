@@ -12,8 +12,11 @@ class user extends Controller{
         $this->tab_active = 'linkMainPage';
         $idUser = $this->getSessionParameters('idUser');
         $this->modelLoad('user/UserModel');
+        $Informer = new Informer('Ваш акаунт пуст. Пожалуйста, заполните на странице <a href="http://tennis.webstudiomandarin.com/user/tunes">"настройки"</a>');
+        $this->settings['informationNotify'] = $Informer->getWarningMessage();
+
         $this->settings['user'] = $this->model->getUserFromId($idUser);
-        
+
         
         $this->setOutput('user/page.tpl');
     }

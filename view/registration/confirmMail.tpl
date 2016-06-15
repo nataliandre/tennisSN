@@ -8,8 +8,8 @@
                     <fieldset>
                         <legend class="align-center">Аутентификация</legend>
                         <p>Шаг 2 из 3</p>
-                        <div class="form-group" id="errorMessages">
-
+                        <div class="flashmessagesContainer">
+                            {$FlashMessage}
                         </div>
 
                         <div class="form-group">

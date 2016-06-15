@@ -10,7 +10,7 @@
     
     
   public function __construct() {
-      R::setup( 'mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME,DB_PASSWORD);
+      
         
         
   }
@@ -244,12 +244,19 @@ public function checkArray($array,$value,$key = false){
      public function depreparet($source){
 	     return str_replace('"','\"',$source);
      }
-      
 
-    
-       
-    
-    
-   
+
+
+      /**
+       * @param $route
+       * @return string
+       */
+      public  function makeUrlToController($route){
+          return HTTP_SERVER.$route;
+      }
+
+
+
+
   }
 ?>

@@ -7,6 +7,9 @@
                     <fieldset>
                         <legend class="align-center">Контактние данние</legend>
                         <p>Шаг 1 из 3</p>
+                        <div class="flashmessagesContainer">
+                            {$FlashMessage}
+                        </div>
                         <div class="form-group">
                             <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                             <div class="col-lg-10">
@@ -28,7 +31,7 @@
                         <div class="form-group">
                             <label for="inputEmail" class="col-lg-2 control-label">Телефон</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control"  name="phone" placeholder="Телефон">
+                                <input type="text" class="form-control"  name="phone" placeholder="+38(068)0038102">
                             </div>
                         </div>
 
@@ -45,23 +48,6 @@
         </div>
 
 
-        <script>
-            var validator = new FormValidator('startRegistrationForm', [{
-                name: 'name',
-                display: 'required',
-                rules: 'min_length[2]'
-            },
-            {
-                name: 'email',
-                rules: 'valid_email',
-                depends: function() {
-                    return Math.random() > .5;
-                }
-            }], function(errors, event) {
-                if (errors.length > 0) {
-                    alert('errors');
-                }
-            });
-        </script>
+        
     {/strip}
 {/block}

@@ -2,6 +2,10 @@ body{
     min-width: 950px;
 }
 
+.alert{
+    font-size: 12px !important;
+}
+
 hr{
     margin-bottom: 0px !important;
     margin-top: 0px !important;
@@ -33,10 +37,18 @@ hr{
     text-align: center;
 }
 
+.avatar__image__holder img{
+    width: 100%;
+}
+
 .bg__tennis__image{
     background: url(../img/bg/tennisWallaper.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.thrumb-photo img{
+    height: 100px;
 }
 
 
@@ -55,3 +67,110 @@ hr{
 .sm-txt{
     font-size: 12px;
 }
+
+
+/* usersContainerInstanses{ */
+    .usersContainer{
+        padding: 10px;
+    }
+
+    .usersContainer div{
+        display: inline-block;
+        vertical-align: top;
+        width: 110px;
+        padding: 9px;
+
+    }
+
+    .usersContainer div img{
+        width: 100px;
+        height: 100px;
+    }
+
+    .usersContainer div p{
+        padding: 5px 2px;
+    }
+
+    .flashmessagesContainer{
+        height: 45px;
+    }
+/* } */
+
+/* avatarsUser{ */
+    .avatarFriends{
+        width: 100px;
+        height: 100px;
+    }
+    .avatarFriendsMessages{
+        width:50px;
+        height: 50px;
+    }
+    .avatarMainPage{
+        width: 182.5px;
+        height: 182.5px;
+    }
+
+/* } */
+
+
+
+
+/* textareas{ */
+    .textaresMessageBody{
+        resize: vertical;
+        font-size: 12px;
+    }
+/* } */
+
+/* messages{ */
+    .messagesLeft{
+        text-align: left;
+    }
+    .messagesRigth{
+        text-align: right;
+    }
+    .messagesContainer{
+        height: 300px;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        margin-bottom: 30px;
+        overflow-y: scroll;
+        position: relative;
+    }
+
+    .messagesContainer .messagesLine{
+        width: 92%;
+        position: absolute;
+        bottom: 0px;
+        left: 30px;
+        font-size: 12px;
+    }
+
+
+
+
+    .messagesContainer .messagesLine > div > div{
+        padding: 5px;
+    }
+
+/* } */
+
+/* avatarUploadBlock */
+.avatarUploadHolder{
+    margin-bottom: 15px;
+}
+
+.avatarUploadedHolder img{
+    width: 100%;
+}
+.avatarUploadedHolder{
+    margin-bottom: 15px;
+}
+/* } */
+
+
+.width-parent{
+    width: 100%;
+}
+
