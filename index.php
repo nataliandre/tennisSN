@@ -17,6 +17,11 @@ require  'libs/Entity/Informer.php';
 require  'libs/ClassImagesUpload/class.upload.php';
 require  'libs/Errors/ErrorsDetector.php';
 require  'libs/Entity/Generator.php';
+require  'libs/Factory/Factory.php';
+require  'libs/Factory/RequiredRoutes.php';
+
+
+$GLOBALS['REQUIRED'] = new RequiredRoutes();
 
 
 R::setup( 'mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME,DB_PASSWORD);

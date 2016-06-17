@@ -4,8 +4,8 @@
         <div class="well well-sm">
             <p>Встречи</p>
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Сиграно</a></li>
-                <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Не сиграно</a></li>
+                <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Сыграно</a></li>
+                <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Не сыграно</a></li>
 
 
             </ul>

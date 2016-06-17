@@ -21,7 +21,7 @@ class Users extends Controller
 
         $UserModel = $this->modelLoadToVar('user/UserModel');
         $this->settings['allUsers'] = $UserModel->getAllUsers($this->getSessionParameters('idUser'));
-        $this->settings['routeUserPage'] = $this->makeUrlToController('person/view/');
+        
         $FriendsModel  = $this->modelLoadToVar('friends/FriendsModel');
         $this->setEndScriptUser('setters/confirmFriendsRequest.js');
         $this->settings['sessionHash'] = $this->getSessionParameters('hashUser');

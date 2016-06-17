@@ -47,8 +47,9 @@
                   $this->settings['linkUserPhotos'] = linkUserPhotos;
                   $this->settings['linkUserSends'] = linkUserSends;
                   $this->settings['linkUserTunes'] = linkUserTunes;
-
+                  $this->settings['routeUserPage'] = $this->makeUrlToController('person/view/');
                   $this->settings['linkLogOut'] = linkLogOut;
+
 
                   $this->settings['linkFriendsPage'] = $this->makeUrlToController('users/friends');
                   $this->settings['linkMessagesHistory'] = $this->makeUrlToController('messages/send/');
@@ -115,6 +116,8 @@
         public function getNewFriendsCount(){
             $FriendsModel  = $this->modelLoadToVar('friends/FriendsModel');
             $this->settings['iCountNewFriends'] = $FriendsModel->getNewFriendsRequests($this->getCurrentUser());
+            $MessagesModel = Factory::ModelFactory('messages/MessagesModel');
+            $this->settings['iCountNewMessages'] = $MessagesModel->getNewMessagesCount($this->getCurrentUser());
         }
 
         public function getCurrentUser(){return $this->getSessionParameters('idUser');}
@@ -130,10 +133,8 @@
         }
 
         public function correctRequireClass($filePath){
-            if(!isset($this->_requiredFiles[$filePath])){
-                require 'model/'.$filePath.'.php';
-                $this->_requiredFiles[$filePath] = true;
-            }
+            $FullFilePath = 'model/'.$filePath.'.php';
+            $GLOBALS['REQUIRED']->setREQUIRED($FullFilePath);
         }
 
 

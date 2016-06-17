@@ -10,7 +10,11 @@
         {$message->body}
     </div>
     <div class="col-xs-2">
-        {$message->data}
+        {if $message->data eq $currentDate}
+            {$message->time}
+        {else}
+            {$message->data}
+        {/if}
     </div>
 </div>
     <div class="clear"></div>

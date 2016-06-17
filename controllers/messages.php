@@ -25,7 +25,7 @@ class Messages extends Controller
         $MessagesModel = $this->modelLoadToVar('messages/MessagesModel');
         $this->settings['userMessages'] = $MessagesModel->getMessageHistory($userId,$this->getCurrentUser());
         $this->settings['sessionHash'] = $this->getSessionParameters('hashUser');
-
+        $this->settings['currentDate'] = date("Y-m-d");
         $this->setOutput('messages/send.tpl');
     }
 

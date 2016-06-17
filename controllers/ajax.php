@@ -26,22 +26,25 @@
       }
       
       public function addFriend($secondUser){
-          $FriendsModel = $this->_getAddKillAbstract($secondUser);
-          if($FriendsModel) {
-              $FriendsModel->setFriendsRequest($this->_data);
-          }else{
-              echo ErrorsDetector::errorCantGetDataFromBase();
+          if($secondUser != "" && $this->bIsAuthentificated()) {
+              $FriendsModel = $this->_getAddKillAbstract($secondUser);
+              if ($FriendsModel) {
+                  $FriendsModel->setFriendsRequest($this->_data);
+              } else {
+                  echo ErrorsDetector::errorCantGetDataFromBase();
+              }
           }
       }
 
       public function killFriendRequest($secondUser){
-            $FriendsModel = $this->_getAddKillAbstract($secondUser);
-            if($FriendsModel) {
-                $FriendsModel->killFriendsRequest($this->_data);
-            }else{
-                echo ErrorsDetector::errorCantGetDataFromBase();
-            }
-
+          if($secondUser != "" && $this->bIsAuthentificated()) {
+              $FriendsModel = $this->_getAddKillAbstract($secondUser);
+              if ($FriendsModel) {
+                  $FriendsModel->killFriendsRequest($this->_data);
+              } else {
+                  echo ErrorsDetector::errorCantGetDataFromBase();
+              }
+          }
       }
 
 
@@ -59,20 +62,24 @@
       }
 
       public function confirmUserAdd($secondUser){
-          $FriendsModel = $this->_getAddKillAbstract($secondUser);
-          if($FriendsModel) {
-              $FriendsModel->confirmFriendsRequest($this->_data);
-          }else{
-              echo ErrorsDetector::errorCantGetDataFromBase();
+          if($secondUser != "" && $this->bIsAuthentificated()) {
+              $FriendsModel = $this->_getAddKillAbstract($secondUser);
+              if ($FriendsModel) {
+                  $FriendsModel->confirmFriendsRequest($this->_data);
+              } else {
+                  echo ErrorsDetector::errorCantGetDataFromBase();
+              }
           }
       }
 
       public function deleteFriendRel($secondUser){
-          $FriendsModel = $this->_getAddKillAbstract($secondUser);
-          if($FriendsModel) {
-              $FriendsModel->deleteFriendsRequest($this->_data);
-          }else{
-              echo ErrorsDetector::errorCantGetDataFromBase();
+          if($secondUser != "" && $this->bIsAuthentificated()) {
+              $FriendsModel = $this->_getAddKillAbstract($secondUser);
+              if ($FriendsModel) {
+                  $FriendsModel->deleteFriendsRequest($this->_data);
+              } else {
+                  echo ErrorsDetector::errorCantGetDataFromBase();
+              }
           }
       }
 
@@ -81,14 +88,16 @@
 
 
       public function sendMessage($userId){
-          $data = $this->oGetRequestObject();
-          $data->recipientId = $userId;
-          $data->senderId = $this->getCurrentUser();
-          if(md5($data->hash) == md5($this->getSessionParameters('hashUser'))){
-              $MessagesModel = $this->modelLoadToVar('messages/MessagesModel');
-              $MessagesModel->sendMessage($data);
-          }else{
-              echo ErrorsDetector::errorCantGetDataFromBase();
+          if($userId != "" && $this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $data->recipientId = $userId;
+              $data->senderId = $this->getCurrentUser();
+              if(md5($data->hash) == md5($this->getSessionParameters('hashUser'))){
+                  $MessagesModel = $this->modelLoadToVar('messages/MessagesModel');
+                  $MessagesModel->sendMessage($data);
+              }else{
+                  echo ErrorsDetector::errorCantGetDataFromBase();
+              }
           }
       }
 

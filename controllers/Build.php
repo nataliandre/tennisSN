@@ -16,13 +16,12 @@ class Build extends Controller
 
 
 
-//    public function buildCities(){
-//        $CitiesArray = ['Киев','Харьков',"Одесса","Львов"];
-//        $CitiesModel = $this->modelLoadToVar('city/CityModel');
-//        $CitiesModel->trashAllCities();
-//        foreach ($CitiesArray as $item){
-//            $CitiesModel->addNewCity($item);
-//        }
-//        print_r($CitiesModel->getAllCities());
-//    }
+    public function buildCities(){
+        $CitiesArray = ['Киев','Харьков',"Одесса","Львов"];
+        $CitiesModel = $this->modelLoadToVar('city/CityModel');
+        foreach ($CitiesArray as $item){
+            $CitiesModel->addNewCity($item);
+        }
+        print_r($CitiesModel->getAllCities);
+    }
 }

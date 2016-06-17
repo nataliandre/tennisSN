@@ -1,5 +1,6 @@
 body{
     min-width: 950px;
+    font-family: Tahoma !important;
 }
 
 .alert{
@@ -66,6 +67,7 @@ hr{
 
 .sm-txt{
     font-size: 12px;
+    margin-bottom: 3px;
 }
 
 
@@ -93,6 +95,13 @@ hr{
 
     .flashmessagesContainer{
         height: 45px;
+    }
+
+    .emptyContainer{
+        padding: 30px;
+        text-align: center;
+        border: 2px dashed grey;
+        color: grey;
     }
 /* } */
 
@@ -152,6 +161,9 @@ hr{
 
     .messagesContainer .messagesLine > div > div{
         padding: 5px;
+    }
+    .messageUserContainer{
+        margin-bottom: 15px;
     }
 
 /* } */

@@ -6,7 +6,7 @@
             <div class="messagesContainer">
                 <div class="messagesLine">
                     {foreach from=$userMessages item=$message}
-                        {include file="../elements/messages/history.tpl" message=$message currentUser=$currentUser->id }
+                        {include file="../elements/messages/history.tpl" message=$message currDate=$currentDate currentUser=$currentUser->id }
                     {/foreach}
 
                 </div>

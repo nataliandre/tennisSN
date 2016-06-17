@@ -23,6 +23,21 @@
                             </a>
                         </li>
 
+                        <li
+                                class="sm-txt {if $tab_active eq 'linkUserMessages'}active{/if}"
+                        ><a href="{$linkUserMessages}">Сообщения
+                                {if $iCountNewMessages}
+                                    <span class="badge">{$iCountNewMessages}</span>
+                                {/if}
+                            </a>
+                        </li>
+
+                        <li
+                                class="sm-txt {if $tab_active eq 'linkUserPhotos'}active{/if}"
+                        >
+                            <a href="{$linkUserPhotos}">Фотогалерея</a>
+                        </li>
+
 
                         <li
                                 class="sm-txt {if $tab_active eq 'linkUserCompetitions'}active{/if}"
@@ -34,16 +49,9 @@
                         ><a href="{$linkUserGames}">Встречи</a>
                         </li>
 
-                        <li
-                                class="sm-txt {if $tab_active eq 'linkUserMessages'}active{/if}"
-                        ><a href="{$linkUserMessages}">Сообщения</a>
-                        </li>
 
-                        <li
-                                class="sm-txt {if $tab_active eq 'linkUserPhotos'}active{/if}"
-                        >
-                            <a href="{$linkUserPhotos}">Фотогалерея</a>
-                        </li>
+
+
 
                         <li
                                 class="sm-txt {if $tab_active eq 'linkUserSends'}active{/if}"

@@ -144,9 +144,7 @@ class Registration extends Controller{
                     $cropParams->{$key} = round($value);
                 }
                 $CroppedImage = new Upload($this->getSessionParameters('avatarRoute'));
-                $CroppedImage->image_crop = $cropParams->w." ".$cropParams->h;
-                $CroppedImage->image_x = $cropParams->x;
-                $CroppedImage->image_y = $cropParams->y;
+                $CroppedImage->image_crop = $cropParams->y1." ".$cropParams->x2." ".$cropParams->y2." ".$cropParams->x1;
                 $CroppedImage->Process($this->_upload_trumb_dir);
                 if($CroppedImage->processed){
                     $UserModel = $this->modelLoadToVar('user/UserModel');
@@ -155,7 +153,9 @@ class Registration extends Controller{
                     $idNewUserId = $this->getSessionParameters('userId');
                     $this->vAuthentificateUser($idNewUserId);
                     $this->deleteSessionParameters('userId');
+                    $this->deleteSessionParameters('avatarRoute');
                     $this->redirectToController('user/page');
+
                 }else{
                     $Informer = new Informer(ErrorsDetector::errorFileNotUploaded());
                     $this->setFlashMessage($Informer->getErrorMessage());
