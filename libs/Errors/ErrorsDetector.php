@@ -16,6 +16,11 @@ class ErrorsDetector
         return 'Пользователь с таким email уже сущетвует';
     }
 
+    public static function errorGamesResultsAlreadyExist()
+    {
+        return 'Результат к зтой игре уже заполнено';
+    }
+
     public static function errorInvalidEmail(){
         return 'Email не верний';
     }
@@ -37,6 +42,14 @@ class ErrorsDetector
 
     public static function errorFileNotUploaded(){
         return 'Ошибка загрузки файла';
+    }
+
+    public  static function errorNotAllowedExternsion(){
+        return 'Неверное расширение файла';
+    }
+
+    public static function errorCroppingFileUploaded(){
+        return 'Ошибка обрезки изображения';
     }
 
 

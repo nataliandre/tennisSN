@@ -7,7 +7,7 @@
  */
 class Registration extends Controller{
 
-    private $_main_acrtion = 'registration/start';
+    private $_main_action = 'registration/start';
     private $_upload_tmp_dir = 'files/images/tmp/';
     private $_upload_trumb_dir = 'files/images/trumb/';
 
@@ -35,7 +35,7 @@ class Registration extends Controller{
             if(!$UserModel->checkEmailForExist($data)){
                 $Informer = new Informer(ErrorsDetector::errorEmailAlreadyExist());
                 $this->setFlashMessage($Informer->getErrorMessage());
-                $this->redirectToController($this->_main_acrtion);
+                $this->redirectToController($this->_main_action);
                 die;
             }
             if($validationResult){
@@ -59,23 +59,37 @@ class Registration extends Controller{
             $mailer = new Mailer($data->email, 'Регистрация нового пользователя', $tplBody);
             $mailer->send();
 
-            $this->redirectToController('registration/confirmMail');
+            $this->redirectToController('registration/mailSend');
             //
         }else{
-            $this->redirect($this->makeUrlToController($this->_main_acrtion));
+            $this->redirect($this->makeUrlToController($this->_main_action));
         }
+    }
+
+    public function mailSend(){
+        $this->setOutput('registration/mailSend.tpl');
     }
 
 
     public function confirmMail(){
-        if($this->getSessionParameters('registrationSession')) {
+
+            $data = $this->oGetRequestObject();
+            if(isset($data->confirmCode)){
+                if( md5($data->confirmCode) == $this->getSessionParameters('token')){
+                    $this->settings['activationCode'] = $data->confirmCode;
+                }else{
+                    $this->setOutput('registration/codeActivatedAlready.tpl');
+                    die;
+                }
+            }else{
+                $this->redirectToController($this->_main_action);
+            }
             $this->settings['actionNextStep'] = $this->makeUrlToController('registration/doConfirmMailAction');
             $this->settings['idNewUser'] = $this->getSessionParameters('userId');
             $this->settings['FlashMessage'] = $this->getFlashMessage();
+            $this->setSessionParameters('registrationSession',true);
             $this->setOutput('registration/confirmMail.tpl');
-        }else{
-            $this->redirectToController($this->_main_acrtion);
-        }
+
     }
 
     public function doConfirmMailAction(){
@@ -87,14 +101,14 @@ class Registration extends Controller{
             $validationResult = RegistrationValidator::validateDataSecondStep($data);
             if($validationResult){
                 $this->setFlashMessage($validationResult);
-                $this->redirectToController('registration/confirmMail');
+                $this->redirectToController('registration/confirmMail?confirmCode='.$data->confirmCode);
                 die;
             }
             $this->modelLoad('user/UserModel');
             $this->settings['idNewUser'] = $this->model->vUpdateUserInformationPasswordAction($data);
             $this->redirectToController('registration/addPhoto');
         }else{
-            $this->redirectToController($this->_main_acrtion);
+            $this->redirectToController($this->_main_action);
         }
     }
 
@@ -111,7 +125,7 @@ class Registration extends Controller{
             }
             $this->setOutput('registration/addPhoto.tpl');
         }else{
-            $this->redirectToController($this->_main_acrtion);
+            $this->redirectToController($this->_main_action);
         }
     }
 
@@ -164,7 +178,7 @@ class Registration extends Controller{
                 }
             }
         }else {
-            $this->redirectToController($this->_main_acrtion);
+            $this->redirectToController($this->_main_action);
         }
     }
 

@@ -20,8 +20,8 @@ class Auth extends Controller{
                 $this->redirectToController('user/page');
             }
             $data = $this->oGetRequestObject();
-            $this->modelLoad('user/UserModel');
-            $idUser = $this->model->authentificateUser($data);
+            $UserModel = Factory::ModelFactory('user/UserModel');
+            $idUser = $UserModel->authentificateUser($data);
             if(is_numeric($idUser)){
                 $this->vAuthentificateUser($idUser);
                 $this->redirectToController('user/page');

@@ -8,6 +8,13 @@
             <div class="flashmessagesContainer">
                 {$FlashMessage}
             </div>
+            {if $dataRequest->type}
+                <input type="hidden" name="type" value="{$dataRequest->type}">
+            {/if}
+            {if $dataRequest->entityId}
+                <input type="hidden" name="entityId" value="{$dataRequest->entityId}">
+            {/if}
+
             {include file="../elements/forms/uploadPhoto.tpl" avatarRoute=$photoRoute formId="#uploadPhotoForm"}
             {if $photoRoute}
             <div class="form-group">

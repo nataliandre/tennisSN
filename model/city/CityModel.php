@@ -19,6 +19,11 @@ class CityModel extends Model
         R::store($City);
     }
 
+    public function getCityById($cityId){
+        $City = R::load('tblcity',$cityId);
+        return $City;
+    }
+
     public function getAllCities(){
         $SQL = "SELECT * FROM tblcity";
         $rows = R::getAll($SQL);

@@ -3,12 +3,12 @@
     {strip}
         <div class="wrapper">
             <div class="row">
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                     <p class="sm-txt">
                     Войдите или зарегестрируйтесь для далнейших действий
                     </p>
                 </div>
-                <div class="col-xs-9">
+                <div class="col-xs-10">
 
 
                     {block name="userBody"}{/block}

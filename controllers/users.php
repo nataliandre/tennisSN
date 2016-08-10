@@ -13,23 +13,53 @@ class Users extends Controller
         if(!$this->bIsAuthentificated()){
             $this->redirectToController('auth/login');
         }
+        $this->settings['routeUserPage'] = $this->makeUrlToController('person/view/');
 
     }
 
     public function friends(){
-        $this->tab_active = 'linkFriendPage';
+        $this->tab_active = 'linkFriendsPage';
 
         $UserModel = $this->modelLoadToVar('user/UserModel');
-        $this->settings['allUsers'] = $UserModel->getAllUsers($this->getSessionParameters('idUser'));
-        
         $FriendsModel  = $this->modelLoadToVar('friends/FriendsModel');
-        $this->setEndScriptUser('setters/confirmFriendsRequest.js');
+
         $this->settings['sessionHash'] = $this->getSessionParameters('hashUser');
-        $this->_setFriendsRequests($FriendsModel);
+        $this->settings['searchAction'] = $this->makeUrlToController('users/search');
+        $this->settings['friendsRequestsLink'] = $this->makeUrlToController('users/requests');
+
         $this->_setFriends($FriendsModel);
         $this->setOutput('users/friends.tpl');
-
     }
+
+    public function requests(){
+        $this->setEndScriptUser('setters/confirmFriendsRequest.js');
+        $this->settings['sessionHash'] = $this->getSessionParameters('hashUser');
+        $FriendsModel  = $this->modelLoadToVar('friends/FriendsModel');
+        $this->_setFriendsRequests($FriendsModel);
+        $this->setOutput('users/requests.tpl');
+    }
+
+
+
+    public function search(){
+        $data = $this->oGetRequestObject();
+        $UsersFriends = Factory::ModelFactory('user/UserModel');
+        $this->settings['users'] = $UsersFriends->getUsersByQuery($data->query,$this->getCurrentUser());
+        $this->settings['QUERY'] = $data->query;
+
+        $this->setOutput('users/search.tpl');
+    }
+
+
+    public function players()
+    {
+        $data = $this->oGetRequestObject();
+        
+
+
+        $this->setOutput('users/players.tpl');
+    }
+
 
     private function _setFriendsRequests($FriendsModel){
         $this->_connectUsersToFriendsRel($FriendsModel,'friendsRequest');

@@ -14,6 +14,16 @@
         
         
   }
+
+
+  public function deleteEmptyElement($ARRAY){
+        foreach ($ARRAY as $key => $value){
+            if($value->id == 0){
+                unset($ARRAY[$key]);
+            }
+        }
+        return $ARRAY;
+  }
    
    
          
@@ -254,9 +264,6 @@ public function checkArray($array,$value,$key = false){
       public  function makeUrlToController($route){
           return HTTP_SERVER.$route;
       }
-
-
-      
 
 
 

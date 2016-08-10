@@ -1,10 +1,13 @@
 {extends file=$EXTENDER_TPL}
 {block name="userBody"}
     {strip}
+        <h4> {Language::messagesTitle($LANGUAGE)}</h4>
+
+
         <div class="well well-sm">
-            <p>Сообщения</p>
+
             {if $userMessages eq false}
-                <h4>У вас пока нет сообщений</h4>
+                {include file="../elements/empty/tpl.tpl" text="{Language::emptyMessageHistory($LANGUAGE)}"}
             {else}
                 <div class="userMessagesContainer">
                     {foreach from=$userMessages item=$message }

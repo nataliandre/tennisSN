@@ -87,6 +87,10 @@
           return str_replace('"','\"',$source);
       }
 
+      public static function arrayToObject($Array){
+          return (object)$Array;
+      }
+
 
 
 

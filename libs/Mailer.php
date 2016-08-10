@@ -32,7 +32,7 @@ class Mailer
         $sTo = $this->_sAdresant;
         $sFrom = $this->_sHolder;
         $sMessage = $this->_tplBody;
-        $sSubject = "=?utf-8?B?".base64_encode($this->_sSubject)."?=".$this->_sSubject;
+        $sSubject = $this->_sSubject;
         $sHeaders = "From: $sFrom\r\nReply-to: $sFrom\r\nContent-type: text/html; charset=utf-8";
         mail($sTo, $sSubject, $sMessage, $sHeaders);
     }

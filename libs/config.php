@@ -65,6 +65,9 @@ define('LANGUAGES','en,ua,ru,pl');
 
 
 
+define('TRANSLATION_FOLDER','translation');
+
+
 /* write this in .htaccess*/
 
 

@@ -27,28 +27,69 @@
         
         public function __construct() {
               
-              require('libs/Functions.php');
+              
               $this->functions                   = new Functions();
+              $Config = new Config('config/config.json');
+
+
+             /**
+              *  {include file="{$routeAvatarTpl}" routeUserPage=$routeUserPage class="avatarMainPage" User=$user }
+              */
               $this->settings['routeAvatarTpl'] = '../elements/images/avatar.tpl';
 
+             /**
+              * {include file="{$routeAvatarClubsTpl}" routeClubPage=$routeClubPage class="avatarMainPage" Club=$Club }
+              */
+              $this->settings['routeAvatarClubsTpl'] = '../elements/images/avatarClubs.tpl';
+
+            /**
+             * {include file="{$routeAvatarTournamentTpl}" routeClubPage=$routeTournamentPage class="avatar80x80" Tournament=$Tournament }
+             */
+              $this->settings['routeAvatarTournamentTpl'] = '../elements/images/avatarTournament.tpl';
+
+
+            /**
+             * {include file="{$route404tpl}" message="Message"}
+             */
+            $this->settings['route404tpl'] = '../elements/empty/404.tpl';
+
+            /**
+             * main framework language
+             */
+            $this->settings['LANGUAGE'] = 'ru';
+
+
+
+
+
+            
 
               //links generation
               $this->settings['linkRegistrationFirstStepAction'] = LinkRegistrationFirstStepAction;
               $this->settings['linkLoginAction'] = linkLoginAction;
+              $this->settings['linkFrogotAction'] = $this->makeUrlToController('forgot/getEmail');
               $this->settings['ajaxController'] = $this->makeUrlToController('ajax/');
 
+            $this->settings['routeTournamentPage'] = $this->makeUrlToController('tournament/view/');
+            $this->settings['routeUserPage'] = $this->makeUrlToController('person/view/');
 
               $this->settings['fIsAuthentificatedUser'] = $this->bIsAuthentificated();
               if($this->settings['fIsAuthentificatedUser']){
-                  $this->settings['linkMainPage'] = linkMainAuthentificatedPage;
+
                   $this->settings['linkUserCompetitions'] = linkUserCompetitions;
-                  $this->settings['linkUserGames'] = linkUserGames;
+                  $this->settings['linkUserGames'] = $this->makeUrlToController('games/incomingRequests');
                   $this->settings['linkUserMessages'] = linkUserMessages;
                   $this->settings['linkUserPhotos'] = linkUserPhotos;
                   $this->settings['linkUserSends'] = linkUserSends;
                   $this->settings['linkUserTunes'] = linkUserTunes;
-                  $this->settings['routeUserPage'] = $this->makeUrlToController('person/view/');
+                  $this->settings['linkUserPage'] = $this->makeUrlToController('user/page');
+                  $this->settings['linkEventsPage'] = $this->makeUrlToController('events/view');
+                  $this->settings['linkUserClubes'] = $this->makeUrlToController('user/club/');
+                  
+                  $this->settings['routeClubPage'] = $this->makeUrlToController('club/view/');
+
                   $this->settings['linkLogOut'] = linkLogOut;
+
 
 
                   $this->settings['linkFriendsPage'] = $this->makeUrlToController('users/friends');
@@ -57,60 +98,36 @@
                   $this->getNewFriendsCount();
 
               }else{
-                  $this->settings['linkMainPage'] = linkMainPage;
+
               }
+              $this->settings['linkMainPage'] = linkMainPage;
+              $this->settings['linkClubsPage'] = $this->makeUrlToController('club/catalog');
+              $this->settings['linkPlayersPage'] = $this->makeUrlToController('players');
+              $this->settings['linkTournamentsPage'] = $this->makeUrlToController('tournament/catalog');
+              $this->settings['linkAddQuickGame'] = $this->makeUrlToController('quickGame/add/');
 
 
-              
-//              $lang_link= ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
-//              $redirect_lang =  ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : HTTP_SERVER;
-//              $lang_link.= (stristr($lang_link,'?')) ? '&' : '?';
-//              $lang_link.= LANG.'=';
               
               $this->tab_active =  $_GET['url'];
               
-              /*$languag = explode(',', LANGUAGES);
-              for($i=0;$i<count($languag);$i++){
-	              $languages[$i]['title'] = $languag[$i];
-	              $languages[$i]['link']  =  $lang_link.$languag[$i].'/';
-              }
-              $this->settings['languages'] = $languages;
-              */
-              
-              
+
               require_once('smarty.php');
               $this->render = $smarty;
-              $this->render->assign('EXTENDER',$this->extender);
+              $this->render->assign('Config',$Config);
+
+
               if($this->bIsAuthentificated()){
                   $this->vSetExtendedTpl('user/tpl/userProfile.tpl');
               }else{
                   $this->vSetExtendedTpl('common/tpl/mainTpl.tpl');
               }
-             /* /* language inductor */
-             /* if($_GET[LA $this->vSetExtendedTpl('user/tpl/userProfile.tpl');NG]){
-	              $_SESSION[LANG] = $_GET[LANG];
-	              $this->cur_lang=$_SESSION[LANG];
-	              header("Location: ".$redirect_lang);
 
-              }else{
-	              $this->cur_lang = trim((!$_SESSION[LANG]) ? DEF_LANGUAGE : $_SESSION[LANG],'/');
-	              
-              }
-              /* end of language inductor*/
-              /*require('libs/Language.php');
-              $this->languages                   = new Language();*/
-              
 
-                     
              
               
         }
         
-    /*    public function languageSet($route){
-	                       $this->settings = array_merge($this->settings, $this->languages->load($route));
-        }
-        
-        */
+
 
 
         public function getNewFriendsCount(){
@@ -118,6 +135,8 @@
             $this->settings['iCountNewFriends'] = $FriendsModel->getNewFriendsRequests($this->getCurrentUser());
             $MessagesModel = Factory::ModelFactory('messages/MessagesModel');
             $this->settings['iCountNewMessages'] = $MessagesModel->getNewMessagesCount($this->getCurrentUser());
+            $GamesModel = Factory::ModelFactory('games/GamesModel');
+            $this->settings['iCountNewGames'] = $GamesModel->getCountGameRequests($this->getCurrentUser());
         }
 
         public function getCurrentUser(){return $this->getSessionParameters('idUser');}
@@ -178,6 +197,7 @@
         
       public function setOutput($tpl){
            $this->setData($this->settings);
+           $this->render->assign('EXTENDER',$this->extender);
            $this->render->assign('tab_active',$this->tab_active);
            $this->render->assign('pagination',$this->pagination);
            $this->render->assign('cur_lang',$this->cur_lang);
@@ -234,6 +254,13 @@
        */
       public function getSessionParameters($sParameterName){
           return isset($_SESSION[$sParameterName]) ? $_SESSION[$sParameterName] : false;
+      }
+
+      public function getSessionParameterWithDeletingResult($sParameterName)
+      {
+          $SessionParameter = $this->getSessionParameters($sParameterName);
+          $this->deleteSessionParameters($sParameterName);
+          return $SessionParameter;
       }
 
       /**

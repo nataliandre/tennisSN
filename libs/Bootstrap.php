@@ -8,50 +8,8 @@
         
             $url = $_GET['url'];
 
-            
-            
-            
-            if($url == 'category/materialy-i-publikatsii/luchshie-knigi-po-ritorike-i-oratorskomu-iskusstvu-0'){
-	            header('Location: http://rhetoric-hall.com.ua/libs/');
-            }
-            if(preg_match('/content/',$url)){
-	            $url = rtrim($url, '/');
-                $url = explode('/', $url);
-	            if($REWRITE->match_book($url[1])){
-		            //echo $url[1];
-	            	$url = 'kniga/'.$url[1];
-	            }else{
-		            header('Location: http://rhetoric-hall.com.ua/libs/');
-	            }
-            }
-            
-         
-            //echo $url;
-            $test1 = $REWRITE->math_url($url);
-            if($test1){
-	           	$url = $test1;
-	            
-            }
-
             $url = rtrim($url, '/');
             $url = explode('/', $url);
-			
-            $url_test2 = $url[0];
-            $test2 = $REWRITE->math_url($url_test2);
-            if($test2){
-	            
-	            $test2 =  explode('/',$test2);
-	            $url[0] = $test2[0];
-	            $prom = $url[1];
-	            $url[1] = $test2[1];
-	            $url[2] = $prom;
-            }
-            
-            unset($test2);
-            unset($test1);
-            unset($url_test2);
-            unset($prom);
-
 
 
             $file = 'controllers/'.$url[0].'.php';

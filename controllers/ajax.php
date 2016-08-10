@@ -102,8 +102,139 @@
       }
 
 
+      public function saveParam(){
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $UserModel = Factory::ModelFactory('user/UserModel');
+              $UserModel->setParametr($data,$this->getCurrentUser());
+          }
+      }
 
-   
+      public function saveTournamentParam(){
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $tournamentId = $data->tournamentId;
+              $TournamentModel = Factory::ModelFactory('tournament/TournamentModel');
+              $Tournament  =  $TournamentModel->getTournamentById($tournamentId);
+              if($Tournament->head_id == $this->getCurrentUser()){
+                  $TournamentModel->setParametr($data,$tournamentId);
+              }
+          }
+      }
+
+
+      public function saveClubParams()
+      {
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $ClubId = $data->clubId;
+              $ClubModel = Factory::ModelFactory('club/ClubModel');
+              $Club  =  $ClubModel->getClubById($ClubId);
+              if($Club->userId == $this->getCurrentUser()){
+                  $ClubModel->setParametr($data,$ClubId);
+              }
+          }
+      }
+
+      
+      
+      public function confirmGamesRequest(){
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesModel = Factory::ModelFactory('games/GamesModel');
+              $GamesModel->vConfirmGameById($data,$this->getCurrentUser());
+          }
+      }
+
+      public function deleteGamesRequest()
+      {
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesModel = Factory::ModelFactory('games/GamesModel');
+              $GamesModel->vDeleteGameById($data,$this->getCurrentUser());
+          }
+      }
+
+      public function failureGamesRequest()
+      {
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesModel = Factory::ModelFactory('games/GamesModel');
+              $GamesModel->vFailureGameByIdWithoutVerification($data->gameId);
+          }
+      }
+
+      public function unconfirmGamesRequest(){
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesModel = Factory::ModelFactory('games/GamesModel');
+              $GamesModel->vUnConfirmGameById($data,$this->getCurrentUser());
+          }
+      }
+
+      public function iWantToCancelRequest()
+      {
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesModel = Factory::ModelFactory('games/GamesModel');
+              $GamesModel->forceCancelRequest($data,$this->getCurrentUser());
+          }
+      }
+
+
+      public function confirmOpponentGameResults()
+      {
+          if($this->bIsAuthentificated()) {
+              $data = $this->oGetRequestObject();
+              $GamesResultsModel = Factory::ModelFactory('games/GamesResultsModel');
+              $GamesResults = $GamesResultsModel->getGameResultsById($data->gameResultId);
+              $GamesResultsModel->confirmOpponentGameResults($data,$this->getCurrentUser());
+              $this->_sendGameResultsConfirmMail(
+                  $GamesResults->game_id->user_id->email,
+                  $GamesResults->game_id->id
+              );
+              
+          }
+      }
+      
+      public function addUserToClub()
+      {
+          $data = $this->oGetRequestObject();
+          $ClubRelationModel = Factory::ModelFactory('club/ClubRelationModel');
+          $ClubRelationModel->addClubRelation($this->getCurrentUser(),$data->clubId);
+          $Informer = new Informer("Вы стали участником клуба!");
+          echo $Informer->getSuccessMessage();
+      }
+
+
+      public function deleteUserFromClub()
+      {
+          $data = $this->oGetRequestObject();
+          $ClubRelationModel = Factory::ModelFactory('club/ClubRelationModel');
+          $ClubRelationModel->deleteClubRelation($this->getCurrentUser(),$data->clubId);
+          $Informer = new Informer("Вы вышли из клуба!");
+          echo $Informer->getSuccessMessage();
+      }
+
+      public function addClubNews()
+      {
+          $data = $this->oGetRequestObject();
+          $ClubsModel = Factory::ModelFactory('club/ClubModel');
+          $Club = $ClubsModel->getClubById($data->clubId);
+          if($Club->userId == $this->getCurrentUser())
+          {
+              $ClubNewsModel = Factory::ModelFactory('club/ClubNewsModel');
+              $ClubNewsModel->addNews($data);
+          }
+      }
+
+      private function _sendGameResultsConfirmMail($email,$gameId)
+      {
+          $MailData['gameId'] =  $gameId;
+          $tplBody = $this->getMailTemplate('gameResultsConfirmed', (object)$MailData);
+          $mailer = new Mailer($email, 'Результаты игры подтверждены', $tplBody);
+          $mailer->send();
+      }
    
    
    

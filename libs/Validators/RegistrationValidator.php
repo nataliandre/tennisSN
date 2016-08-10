@@ -49,7 +49,7 @@ class RegistrationValidator
             $Informer = new Informer(ErrorsDetector::errorPasswordIsShort());
             $validateErrors = $Informer->getErrorMessage();
         }
-        if(md5($data->activationCode) != $data->activationCodeSession){
+        if(md5($data->confirmCode) != $data->activationCodeSession){
             $Informer = new Informer(ErrorsDetector::errorActivationCodeDontMatch());
             $validateErrors = $Informer->getErrorMessage();
         }

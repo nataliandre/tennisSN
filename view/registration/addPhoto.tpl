@@ -15,6 +15,9 @@
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
                                 <input type="hidden" name="userId" value="{$idNewUser}">
+                                {if $dataRequest->type}
+                                    <input type="hidden" name="type" value="{$dataRequest->type}" />
+                                {/if}
                                 <button type="reset" class="btn btn-default">Очистить</button>
                                 <button type="submit" class="btn btn-primary">Продолжить</button>
                             </div>

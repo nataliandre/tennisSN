@@ -12,12 +12,9 @@
                             {$FlashMessage}
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputEmail"  class="col-lg-4 control-label">Код подтверждения</label>
-                            <div class="col-lg-8">
-                                <input type="text" id="activationCodeChecker" class="form-control" name="activationCode" placeholder="код">
-                            </div>
-                        </div>
+
+                        <input type="hidden"  name="confirmCode" value="{$activationCode}">
+
                         <div class="form-group">
                             <label for="inputEmail" class="col-lg-4 control-label">Ваш пароль</label>
                             <div class="col-lg-8">

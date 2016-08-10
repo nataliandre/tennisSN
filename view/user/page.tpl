@@ -7,32 +7,49 @@
        <div class="avatar__image__holder">
            {include file="{$routeAvatarTpl}" routeUserPage=$routeUserPage class="avatarMainPage" User=$user }
        </div>
-       <a href="" class="btn btn-success sm-txt width-parent">Изменить фотографию</a>
-
+       <a href="{$userChangeAvatarRoute}" class="btn btn-success sm-txt width-parent">Изменить фотографию</a>
     </div>
+
+
+      {if $UserPlan}
+          <h5 >График игры</h5>
+          <div class="well well-sm">
+              {foreach from=$UserPlan item=$UserP}
+                  {if !$UserP->playDay}
+                      <div>
+                          <p class="sm-txt">{$UserP->title}</p>
+                          <p> c {$UserP->minValue} до {$UserP->maxValue} </p>
+                      </div>
+                  {/if}
+              {/foreach}
+          </div>
+
+      {/if}
+
+
 
 
    </div>
   <div class="col-xs-8">
+      <h4>{$user->name} {$user->surname}</h4>
+
+      <h5 >{Language::userInfoTitle($LANGUAGE)}</h5>
     <div class="well well-sm">
-      <p>{$user->name} {$user->surname}</p>
-      <hr/>
-      <div class="user__information">
-        {$informationNotify}
+        {include file='../elements/containers/userOptions.tpl' user=$user }
+        <a href="{$tunesLink}" class="btn btn-info btnAdd">{Language::userTunesTitleXL($LANGUAGE)}</a>
 
-      </div>
-     </div>
-
+    </div>
+      <h5 >{Language::photoTitle($LANGUAGE)}</h5>
      <div class="well well-sm">
-       <p class="sm-txt">Фотографии</p>
-         <div class="thrumb-photo">
-             {include file="{$routeAvatarTpl}" routeUserPage=$routeUserPage  User=$user }
-         </div>
+         {if $userPhotos}
+         {include file="../elements/images/photosGrid.tpl" imageClass="userPagePhotosGridImageHolder" images=$userPhotos photosPath=$photosPath}
+         {else}
+         {include file="../elements/empty/tpl.tpl" text=Language::noPhotos($LANGUAGE)}
+         {/if}
      </div>
-
+      <h5 >{Language::userAchievementTitle($LANGUAGE)}</h5>
      <div class="well well-sm">
-      <p class="sm-txt">Достижения</p>
-
+         {include file="../user/tabCampionships.tpl"}
      </div>
    </div>
  </div>

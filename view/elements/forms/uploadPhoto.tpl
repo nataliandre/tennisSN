@@ -1,6 +1,6 @@
 <div class="input-group avatarUploadHolder">
     <label class="input-group-btn">
-                                 <span class="btn btn-primary">
+                                 <span class="btn btn-primary btn-uploadPhoto">
                                      Загрузить <input type="file" id="uploadAvatar" name="avatar" style="display: none;" >
                                  </span>
     </label>
@@ -35,7 +35,9 @@
             aspectRatio: 1,
             onChange: updateCoords,
             onSelect: updateCoords,
-            addClass: 'cropper-centered'
+            addClass: 'cropper-centered',
+            setSelect: [0,0,200,200]
+
 
         });
 
